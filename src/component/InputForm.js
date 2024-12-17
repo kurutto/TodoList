@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "./Button";
 import InputText from "./InputText";
 import Radio from "./Radio";
 import Textarea from "./Textarea";
-import TodoList from "./TodoList";
 
 const InputTodo = ({ createTodoList }) => {
   const [title, setTitle] = useState("");
