@@ -13,13 +13,16 @@ const InputTodo = ({
   editDetail,
 }) => {
   const [title, setTitle] = useState(editTitle || "");
-  console.log(title);
-  const [status, setStatus] = useState(editStatus || 0);
   const statusItems = ["未着手", "進行中", "完了"];
+  const [status, setStatus] = useState(
+    editStatus ? statusItems.indexOf(editStatus) : 0
+  );
   const [detail, setDetail] = useState(editDetail || "");
   const onSubmit = (e) => {
     e.preventDefault();
-    createTodoList ? createTodoList(title, statusItems[status], detail) : editTodoList(editId, title, statusItems[status], detail);
+    createTodoList
+      ? createTodoList(title, statusItems[status], detail)
+      : editTodoList(editId, title, statusItems[status], detail);
     setTitle("");
     setStatus(0);
     setDetail("");
@@ -46,8 +49,8 @@ const InputTodo = ({
                   label={statusItem}
                   name="status"
                   value={idx}
-                  checked={editStatus ? editStatus : status === idx}
-                  onClick={(e) => setStatus(parseInt(e.target.value))}
+                  checked={status === idx}
+                  onChange={(e) => setStatus(parseInt(e.target.value))}
                 />
               </div>
             ))}

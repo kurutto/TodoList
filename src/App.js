@@ -27,7 +27,6 @@ const App = () => {
         return todo
       }
     })
-    console.log(newList);
     setTodoList(newList)
     setEdit();
   }
