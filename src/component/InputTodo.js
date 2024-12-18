@@ -4,14 +4,22 @@ import InputText from "./InputText";
 import Radio from "./Radio";
 import Textarea from "./Textarea";
 
-const InputTodo = ({ createTodoList }) => {
-  const [title, setTitle] = useState("");
-  const [status, setStatus] = useState(0);
+const InputTodo = ({
+  createTodoList,
+  editTodoList,
+  editId,
+  editTitle,
+  editStatus,
+  editDetail,
+}) => {
+  const [title, setTitle] = useState(editTitle || "");
+  console.log(title);
+  const [status, setStatus] = useState(editStatus || 0);
   const statusItems = ["未着手", "進行中", "完了"];
-  const [detail, setDetail] = useState("");
+  const [detail, setDetail] = useState(editDetail || "");
   const onSubmit = (e) => {
     e.preventDefault();
-    createTodoList(title, statusItems[status], detail);
+    createTodoList ? createTodoList(title, statusItems[status], detail) : editTodoList(editId, title, statusItems[status], detail);
     setTitle("");
     setStatus(0);
     setDetail("");
@@ -26,6 +34,7 @@ const InputTodo = ({ createTodoList }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             id="title"
+            defaultValue={editTitle || title}
           />
         </div>
         <div className="field">
@@ -34,10 +43,10 @@ const InputTodo = ({ createTodoList }) => {
             {statusItems.map((statusItem, idx) => (
               <div key={idx}>
                 <Radio
-                  label={statusItems[idx]}
+                  label={statusItem}
                   name="status"
                   value={idx}
-                  checked={status === idx}
+                  checked={editStatus ? editStatus : status === idx}
                   onClick={(e) => setStatus(parseInt(e.target.value))}
                 />
               </div>
@@ -50,11 +59,16 @@ const InputTodo = ({ createTodoList }) => {
             id="detail"
             value={detail}
             onChange={(e) => setDetail(e.target.value)}
+            defaultValue={editDetail}
           />
         </div>
         <div className="ui two column centered grid">
           <div className="column">
-            <Button type="submit" text="送信" color="primary" width="fluid" />
+            {createTodoList ? (
+              <Button type="submit" text="送信" color="primary" width="fluid" />
+            ) : (
+              <Button type="submit" text="保存" width="fluid" />
+            )}
           </div>
         </div>
       </form>
