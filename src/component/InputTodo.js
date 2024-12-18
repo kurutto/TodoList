@@ -37,7 +37,6 @@ const InputTodo = ({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             id="title"
-            defaultValue={editTitle || title}
           />
         </div>
         <div className="field">
@@ -62,7 +61,6 @@ const InputTodo = ({
             id="detail"
             value={detail}
             onChange={(e) => setDetail(e.target.value)}
-            defaultValue={editDetail}
           />
         </div>
         <div className="ui two column centered grid">
